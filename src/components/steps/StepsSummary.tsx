@@ -1,0 +1,31 @@
+'use client';
+import { motion } from 'framer-motion';
+
+const steps = [
+    { n: 1, title: 'Brief & Budget', href: '/5-steps' },
+    { n: 2, title: 'Legal Kit', href: '/5-steps' },
+    { n: 3, title: 'Property Due Diligence', href: '/5-steps' },
+    { n: 4, title: 'Secure Purchase', href: '/5-steps' },
+    { n: 5, title: 'Autopilot Ownership', href: '/5-steps' },
+];
+
+export function StepsSummary() {
+    return (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
+            {steps.map((s, i) => (
+                <motion.a
+                    key={s.n}
+                    href={s.href}
+                    initial={{ opacity: 0, y: 8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="rounded-lg border p-4 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+                >
+                    <div className="text-sm text-neutral-500">Step {s.n}</div>
+                    <div className="mt-1 text-base font-semibold">{s.title}</div>
+                    <div className="mt-2 text-xs text-blue-600">Learn more</div>
+                </motion.a>
+            ))}
+        </div>
+    );
+}
