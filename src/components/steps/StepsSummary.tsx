@@ -11,21 +11,26 @@ const steps = [
 
 export function StepsSummary() {
     return (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
-            {steps.map((s, i) => (
-                <motion.a
-                    key={s.n}
-                    href={s.href}
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    className="rounded-lg border p-4 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2"
-                >
-                    <div className="text-sm text-neutral-500">Step {s.n}</div>
-                    <div className="mt-1 text-base font-semibold">{s.title}</div>
-                    <div className="mt-2 text-xs text-blue-600">Learn more</div>
-                </motion.a>
-            ))}
+        <div
+            className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+        >
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+                {steps.map((s, i) => (
+                    <motion.a
+                        key={s.n}
+                        href={s.href}
+                        initial={{ opacity: 0, y: 8 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.05 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        className="block h-full rounded-lg border p-4 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                    >
+                        <div className="text-sm text-neutral-500">Step {s.n}</div>
+                        <div className="mt-1 text-base font-semibold">{s.title}</div>
+                        <div className="mt-2 text-xs text-blue-600">Learn more</div>
+                    </motion.a>
+                ))}
+            </div>
         </div>
     );
 }
