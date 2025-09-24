@@ -9,11 +9,11 @@ export default function Footer() {
                     © {new Date().getFullYear()} Real Estate Algarve. All rights reserved.
                 </p>
                 <nav className="flex items-center gap-4">
-                    <Link href="/legal/privacy" className="hover:underline">Privacy</Link>
+                    <Link href="/privacy-policy" className="hover:underline">Privacy</Link>
                     <span className="text-gray-300">|</span>
-                    <Link href="/legal/terms" className="hover:underline">Terms</Link>
+                    <Link href="/terms-of-service" className="hover:underline">Terms</Link>
                     <span className="text-gray-300">|</span>
-                    <Link href="/legal/cookies" className="hover:underline">Cookies</Link>
+                    <Link href="/cookie-policy" className="hover:underline">Cookies</Link>
                 </nav>
             </div>
         </footer>

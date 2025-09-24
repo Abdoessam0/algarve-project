@@ -7,6 +7,8 @@ import Navbar from "@/components/steps/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = defaultSEO;
+// Ensure proper mobile scaling
+export const viewport = { width: "device-width", initialScale: 1 } as const;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

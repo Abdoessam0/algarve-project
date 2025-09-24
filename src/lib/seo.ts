@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 
 export const siteName = "Real Estate Algarve";
-export const siteUrl = "https://www.realestate-algarve.example"; // update on deploy
+export const siteUrl = "https://www.realestate-algarve.com";
 
 export const defaultSEO: Metadata = {
     metadataBase: new URL(siteUrl),
