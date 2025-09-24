@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { defaultSEO, organizationJsonLd, webSiteJsonLd } from "@/lib/seo";
 import Navbar from "@/components/steps/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = defaultSEO;
 // Ensure proper mobile scaling
@@ -24,9 +25,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen flex flex-col bg-white text-gray-900">
-        <Navbar />
-        <main className="flex-1 pt-16 md:pt-0">{children}</main>
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          <main className="flex-1 pt-16 md:pt-0">{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
