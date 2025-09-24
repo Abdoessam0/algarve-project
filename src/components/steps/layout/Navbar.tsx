@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function Navbar() {
     return (
-        <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
-            <nav className="container mx-auto flex items-center justify-between px-4 py-3">
+        <header className="fixed md:sticky top-0 inset-x-0 z-50 bg-white/90 backdrop-blur border-b">
+            <nav className="container mx-auto flex items-center justify-between px-4 h-14">
                 {/* Brand (left) */}
                 <Link href="/" className="flex items-center gap-2 font-semibold text-lg">
                     <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white">
