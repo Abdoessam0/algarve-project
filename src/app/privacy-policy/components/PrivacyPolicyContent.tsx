@@ -46,7 +46,7 @@ export function PrivacyPolicyContent() {
                 Contractual Clauses.
             </p>
 
-            <h2>Children's Privacy</h2>
+            <h2>Children&apos;s Privacy</h2>
             <p>Our services are not directed to individuals under 16 years of age.</p>
 
             <h2>Contact</h2>
@@ -58,7 +58,6 @@ export function PrivacyPolicyContent() {
 
             <script
                 type="application/ld+json"
-                // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify({
                         "@context": "https://schema.org",
