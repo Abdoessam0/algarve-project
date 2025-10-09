@@ -56,7 +56,11 @@ export default async function BlogPage() {
       "@type": "BlogPosting",
       headline: post.title,
       datePublished: post.published_at ?? undefined,
-      image: resolveBlogImage({ slug: post.slug, category: post.category, cover: post.image_url ?? post.cover_image_url ?? undefined }),
+      image: resolveBlogImage({
+        slug: post.slug,
+        category: post.category ?? undefined,
+        cover: (post.image_url ?? post.cover_image_url ?? (post as Partial<Record<"cover", string | null>>).cover ?? undefined) ?? undefined,
+      }),
       author: post.author ? { "@type": "Person", name: post.author } : undefined,
       url: post.slug ? `/news/${post.slug}` : undefined,
     })),
