@@ -24,3 +24,25 @@ body {
 .container {
   max-width: 1100px;
 }
+
+@layer utilities {
+  .bg-step-1 {
+    @apply bg-gradient-to-br from-sky-400 via-blue-500 to-blue-700;
+  }
+
+  .bg-step-2 {
+    @apply bg-gradient-to-br from-pink-400 via-rose-500 to-fuchsia-600;
+  }
+
+  .bg-step-3 {
+    @apply bg-gradient-to-br from-emerald-400 via-teal-500 to-emerald-600;
+  }
+
+  .bg-step-4 {
+    @apply bg-gradient-to-br from-amber-400 via-orange-500 to-orange-600;
+  }
+
+  .bg-step-5 {
+    @apply bg-gradient-to-br from-indigo-400 via-violet-500 to-purple-700;
+  }
+}

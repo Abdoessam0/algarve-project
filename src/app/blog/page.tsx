@@ -1,7 +1,11 @@
-// src/app/blog/page.tsx
+﻿// src/app/blog/page.tsx
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { meta } from "@/lib/seo";
+import HeroFeatured from "@/components/blog/HeroFeatured";
+import PostCard from "@/components/blog/PostCard";
+import { resolveBlogImage } from "@/lib/blogImages";
 import { getAllBlogPosts, getFeaturedBlogPost, type BlogPost } from "./utils";
 
 export const metadata: Metadata = meta({
@@ -11,53 +15,15 @@ export const metadata: Metadata = meta({
   canonical: "/blog",
 });
 
-function formatDate(input?: string | null) {
-  if (!input) return "";
-  try {
-    return new Intl.DateTimeFormat("en", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }).format(new Date(input));
-  } catch {
-    return "";
-  }
-}
-
-function PostCard({ post }: { post: BlogPost }) {
-  return (
-    <article className="group rounded-2xl border bg-white shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
-      {post.image_url ? (
-        <div
-          aria-hidden
-          className="h-44 w-full bg-gray-100 bg-center bg-cover"
-          style={{ backgroundImage: `url(${post.image_url})` }}
-        />
-      ) : null}
-      <div className="p-4">
-        <div className="flex items-center gap-2 text-xs text-gray-500">
-          {post.category ? (
-            <span className="inline-flex items-center rounded-full bg-sky-50 text-sky-700 px-2 py-0.5">
-              {post.category}
-            </span>
-          ) : null}
-          {post.read_time_min ? <span>{post.read_time_min} min read</span> : null}
-        </div>
-        <h3 className="mt-2 text-lg font-semibold text-gray-900">
-          <Link href={post.slug ? `/news/${post.slug}` : "/news"} className="hover:underline">
-            {post.title}
-          </Link>
-        </h3>
-        {post.excerpt ? (
-          <p className="mt-2 text-sm text-gray-600 line-clamp-3">{post.excerpt}</p>
-        ) : null}
-        <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
-          <span>{post.author ?? "Real Estate Algarve"}</span>
-          <time dateTime={post.published_at ?? undefined}>{formatDate(post.published_at)}</time>
-        </div>
-      </div>
-    </article>
-  );
+function buildSchemaPosts(featured: BlogPost | null, posts: BlogPost[]) {
+  const seen = new Set<string | number>();
+  return [featured, ...posts]
+    .filter((post): post is BlogPost => Boolean(post))
+    .filter((post) => {
+      if (seen.has(post.id)) return false;
+      seen.add(post.id);
+      return true;
+    });
 }
 
 export default async function BlogPage() {
@@ -66,17 +32,33 @@ export default async function BlogPage() {
     getAllBlogPosts(12),
   ]);
 
+  let heroFeatured: BlogPost | null = featured;
+  let derivedPosts = [...posts];
+
+  if (!heroFeatured && derivedPosts.length > 0) {
+    heroFeatured = derivedPosts[0] ?? null;
+    derivedPosts = derivedPosts.slice(1);
+  }
+
+  const secondaryFeatured = derivedPosts.length > 0 ? derivedPosts[0] : null;
+  const remainingPosts = secondaryFeatured
+    ? derivedPosts.slice(1)
+    : derivedPosts;
+
+  const schemaPosts = buildSchemaPosts(featured, posts);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
     headline: "Real Estate Algarve Blog",
     url: "/blog",
-    blogPost: posts.map((p) => ({
+    blogPost: schemaPosts.map((post) => ({
       "@type": "BlogPosting",
-      headline: p.title,
-      datePublished: p.published_at ?? undefined,
-      image: p.image_url ?? undefined,
-      author: p.author ? { "@type": "Person", name: p.author } : undefined,
+      headline: post.title,
+      datePublished: post.published_at ?? undefined,
+      image: resolveBlogImage({ slug: post.slug, category: post.category, cover: post.image_url ?? post.cover_image_url ?? undefined }),
+      author: post.author ? { "@type": "Person", name: post.author } : undefined,
+      url: post.slug ? `/news/${post.slug}` : undefined,
     })),
   } as const;
 
@@ -91,155 +73,157 @@ export default async function BlogPage() {
 
   return (
     <div className="bg-white">
-      <section className="relative">
-        {/* Hero background */}
+      <section className="relative overflow-hidden bg-slate-900 text-white">
         <div className="absolute inset-0">
-          <div
-            aria-hidden
-            className="h-72 w-full bg-center bg-cover"
-            style={{ backgroundImage: 'url(/images/journey/lisbon.jpg)' }}
+          <Image
+            src="/blog_hero.webp"
+            alt="Lisbon skyline at dusk"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-white/0" />
+          <div
+            className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/55 to-black/35"
+            aria-hidden
+          />
         </div>
-        <div className="container mx-auto px-4 pt-16 md:pt-20 pb-6 relative">
-          <nav aria-label="Breadcrumb" className="text-white/90 text-sm mb-3">
+        <div className="relative container mx-auto px-4 py-16 lg:py-20">
+          <nav aria-label="Breadcrumb" className="text-white/90 text-sm">
             <ol className="flex items-center gap-2">
               <li>
-                <Link href="/" className="hover:underline">Home</Link>
+                <Link
+                  href="/"
+                  className="transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                >
+                  Home
+                </Link>
               </li>
-              <li aria-hidden="true">›</li>
-              <li className="font-medium">Blog</li>
+              <li aria-hidden="true">/</li>
+              <li className="font-medium text-white">Blog</li>
             </ol>
           </nav>
-          <div className="max-w-2xl text-white">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Real Estate Blog</h1>
-            <p className="mt-2 text-white/90">
-              Expert insights, market analysis, and guides for buying and investing across the Algarve.
-            </p>
-          </div>
-
-          {/* Featured card (floated on desktop) */}
-          {featured ? (
-            <div className="mt-6 md:absolute md:right-6 md:top-20 md:w-[440px]">
-              <article className="rounded-2xl bg-white shadow-md ring-1 ring-black/5 overflow-hidden">
-                {featured.image_url ? (
-                  <div
-                    aria-hidden
-                    className="h-40 w-full bg-center bg-cover"
-                    style={{ backgroundImage: `url(${featured.image_url})` }}
-                  />
-                ) : null}
-                <div className="p-5">
-                  <div className="flex items-center gap-2 text-[11px] text-gray-600">
-                    <span className="inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 px-2 py-0.5">
-                      Featured Post
-                    </span>
-                    {featured.category ? (
-                      <span className="inline-flex items-center rounded-full bg-sky-50 text-sky-700 px-2 py-0.5">
-                        {featured.category}
-                      </span>
-                    ) : null}
-                    {featured.read_time_min ? <span>• {featured.read_time_min} min read</span> : null}
-                  </div>
-                  <h2 className="mt-2 text-xl font-semibold text-gray-900">
-                    <Link href={featured.slug ? `/news/${featured.slug}` : "/news"} className="hover:underline">
-                      {featured.title}
-                    </Link>
-                  </h2>
-                  {featured.excerpt ? (
-                    <p className="mt-2 text-sm text-gray-600 line-clamp-3">{featured.excerpt}</p>
-                  ) : null}
-                  <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
-                    <span>{featured.author ?? "Editorial Team"}</span>
-                    <time dateTime={featured.published_at ?? undefined}>{formatDate(featured.published_at)}</time>
-                  </div>
-                  <div className="mt-4">
-                    <Link
-                      href={featured.slug ? `/news/${featured.slug}` : "/news"}
-                      className="inline-flex items-center justify-center rounded-xl bg-blue-600 text-white px-4 py-2 text-sm font-medium hover:bg-blue-700 transition-colors"
-                    >
-                      Read Full Article →
-                    </Link>
-                  </div>
-                </div>
-              </article>
+          <div className="mt-10 grid gap-y-10 gap-x-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+            <div className="space-y-6 max-w-xl">
+              <h1 className="text-3xl font-bold tracking-tight md:text-5xl">
+                Real Estate Blog
+              </h1>
+              <p className="text-white/85 text-base md:text-lg">
+                Expert insights, market analysis, and guides for buying and investing across the Algarve.
+              </p>
+              <p className="text-sm text-white/70">
+                Explore perspectives from verified professionals to navigate every step from scouting neighborhoods to closing on your Portuguese home.
+              </p>
             </div>
-          ) : null}
+            <div className="grid gap-6 lg:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
+              {heroFeatured ? <HeroFeatured post={heroFeatured} /> : null}
+              {secondaryFeatured ? (
+                <PostCard post={secondaryFeatured} className="min-h-[22rem]" />
+              ) : null}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Main content */}
-      <section className="container mx-auto px-4 pb-14">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Posts list */}
-          <div className="lg:col-span-2">
-            <h2 className="sr-only">Latest articles</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {posts.map((p) => (
-                <PostCard key={p.id} post={p} />
+      <section className="container mx-auto px-4 pb-16 pt-10">
+        <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:gap-x-12">
+          <div>
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Latest Articles
+              </h2>
+              <Link
+                href="/news"
+                  className="text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              >
+                View News
+              </Link>
+            </div>
+            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-8 sm:grid-cols-2 xl:grid-cols-3">
+              {remainingPosts.map((post) => (
+                <PostCard key={post.id} post={post} />
               ))}
             </div>
           </div>
-
-          {/* Sidebar */}
           <aside aria-label="Sidebar" className="space-y-6">
-            <section className="rounded-2xl border bg-white p-5 shadow-sm">
-              <h3 className="text-base font-semibold text-gray-900">Market at a Glance</h3>
-              <ul className="mt-3 grid grid-cols-2 gap-3 text-sm">
-                <li className="rounded-xl bg-sky-50 text-sky-900 p-3">
-                  <p className="text-xs text-sky-800">Median Price</p>
-                  <p className="font-semibold">€450k</p>
+            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-semibold text-slate-900">Market at a Glance</h3>
+              <ul className="mt-4 grid grid-cols-2 gap-3 text-sm">
+                <li className="rounded-xl bg-sky-50 p-3 text-sky-900">
+                  <p className="text-xs text-sky-700">Median Price</p>
+                  <p className="font-semibold">EUR 450k</p>
                 </li>
-                <li className="rounded-xl bg-indigo-50 text-indigo-900 p-3">
-                  <p className="text-xs text-indigo-800">YoY Change</p>
+                <li className="rounded-xl bg-indigo-50 p-3 text-indigo-900">
+                  <p className="text-xs text-indigo-700">Year-over-Year</p>
                   <p className="font-semibold">+6.2%</p>
                 </li>
-                <li className="rounded-xl bg-blue-50 text-blue-900 p-3">
-                  <p className="text-xs text-blue-800">Days on Market</p>
+                <li className="rounded-xl bg-blue-50 p-3 text-blue-900">
+                  <p className="text-xs text-blue-700">Days on Market</p>
                   <p className="font-semibold">42</p>
                 </li>
-                <li className="rounded-xl bg-teal-50 text-teal-900 p-3">
-                  <p className="text-xs text-teal-800">Cash Buyers</p>
+                <li className="rounded-xl bg-emerald-50 p-3 text-emerald-900">
+                  <p className="text-xs text-emerald-700">Cash Buyers</p>
                   <p className="font-semibold">38%</p>
                 </li>
               </ul>
             </section>
 
-            <section className="rounded-2xl border bg-white p-5 shadow-sm">
-              <h3 className="text-base font-semibold text-gray-900">News Ticker</h3>
+            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-semibold text-slate-900">News Ticker</h3>
               <ul className="mt-3 space-y-2 text-sm">
-                {posts.slice(0, 5).map((p) => (
-                  <li key={`ticker-${p.id}`} className="truncate">
-                    <Link href={p.slug ? `/news/${p.slug}` : "/news"} className="text-blue-700 hover:underline">
-                      {p.title}
+                {posts.slice(0, 5).map((post) => (
+                  <li key={`ticker-${post.id}`} className="truncate">
+                    <Link
+                      href={post.slug ? `/news/${post.slug}` : "/news"}
+                      className="text-blue-700 transition-colors hover:text-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                    >
+                      {post.title}
                     </Link>
                   </li>
                 ))}
               </ul>
               <div className="mt-4">
-                <Link href="/news" className="inline-flex items-center text-sm font-medium text-blue-700 hover:underline">
-                  View All News →
+                <Link
+                  href="/news"
+                  className="inline-flex items-center gap-1 text-sm font-medium text-blue-700 transition-colors hover:text-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                >
+                  View All News
                 </Link>
               </div>
             </section>
 
-            <section className="rounded-2xl border bg-white p-5 shadow-sm">
-              <h3 className="text-base font-semibold text-gray-900">Weather</h3>
-              <p className="mt-2 text-sm text-gray-600">Algarve: 24°C · Clear skies</p>
-              <p className="text-xs text-gray-500 mt-1">For planning only</p>
+            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-semibold text-slate-900">Weather</h3>
+              <p className="mt-2 text-sm text-slate-600">Algarve: 24 C with clear skies.</p>
+              <p className="mt-1 text-xs text-slate-500">For planning purposes only.</p>
             </section>
 
-            <section className="rounded-2xl border bg-white p-5 shadow-sm">
-              <h3 className="text-base font-semibold text-gray-900">Explore More</h3>
+            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-semibold text-slate-900">Explore More</h3>
               <ul className="mt-3 space-y-2 text-sm">
                 <li>
-                  <Link href="/areas" className="text-blue-700 hover:underline">Explore Areas</Link>
+                  <Link
+                    href="/areas"
+                    className="text-blue-700 transition-colors hover:text-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                  >
+                    Explore Areas
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/professionals" className="text-blue-700 hover:underline">Find Professionals</Link>
+                  <Link
+                    href="/professionals"
+                    className="text-blue-700 transition-colors hover:text-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                  >
+                    Find Professionals
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/news" className="text-blue-700 hover:underline">Market News</Link>
+                  <Link
+                    href="/news"
+                    className="text-blue-700 transition-colors hover:text-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                  >
+                    Market News
+                  </Link>
                 </li>
               </ul>
             </section>
@@ -247,7 +231,6 @@ export default async function BlogPage() {
         </div>
       </section>
 
-      {/* Structured data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -259,3 +242,5 @@ export default async function BlogPage() {
     </div>
   );
 }
+
+

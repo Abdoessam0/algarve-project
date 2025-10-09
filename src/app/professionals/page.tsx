@@ -1,4 +1,5 @@
 // src/app/professionals/page.tsx
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { meta } from "@/lib/seo";
@@ -62,6 +63,13 @@ export default async function ProfessionalsPage() {
     { label: "Client Satisfaction", value: "99%", icon: "⭐" },
     { label: "Avg Response", value: "1–3h", icon: "⏱" },
   ];
+
+  const premiumItems = [
+    { title: "Agents", href: "/professionals/agents", src: "/english-speaking-agents.jpg" },
+    { title: "Lawyers", href: "/professionals/lawyers", src: "/english-speaking-lawyers.webp" },
+    { title: "Architects", href: "/professionals/architects", src: "/english-speaking-architects.jpg" },
+    { title: "Constructors", href: "/professionals/constructors", src: "/english-speaking-constructors.webp" },
+  ] as const;
 
   const breadcrumbLd = {
     "@context": "https://schema.org",
@@ -149,26 +157,26 @@ export default async function ProfessionalsPage() {
       <section id="services" className="container mx-auto px-4 py-10">
         <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">Premium Services</h2>
         <p className="text-gray-600 mt-2">Curated experts trusted for transactions in prime Algarve locations.</p>
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {[
-            { title: "Agents", img: "/images/journey/algarve-coast-1.jpg", href: "#specializations" },
-            { title: "Lawyers", img: "/images/journey/algarve-coast-2.jpg", href: "#specializations" },
-            { title: "Architects", img: "/images/journey/lisbon.jpg", href: "#specializations" },
-            { title: "Notaries", img: "/hero-algarve.jpg", href: "#specializations" },
-          ].map((card) => (
+        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+          {premiumItems.map((item) => (
             <Link
-              key={card.title}
-              href={card.href}
-              className="group relative rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-lg transition-all"
+              key={item.title}
+              href={item.href}
+              className="group block overflow-hidden rounded-2xl border border-black/10 bg-white shadow-md transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             >
-              <div
-                aria-hidden
-                className="h-36 w-full bg-center bg-cover"
-                style={{ backgroundImage: `url(${card.img})` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-              <div className="absolute bottom-3 left-3 text-white font-semibold text-lg">
-                {card.title}
+              <div className="relative h-48 w-full sm:h-52">
+                <Image
+                  src={item.src}
+                  alt={item.title}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  priority={false}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                <div className="absolute left-4 bottom-4 text-white font-semibold text-lg drop-shadow">
+                  {item.title}
+                </div>
               </div>
             </Link>
           ))}

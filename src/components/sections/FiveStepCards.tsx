@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from 'react';
 import { motion, useReducedMotion, MotionConfig } from 'framer-motion';
 import { stepGradients } from "@/utils/gradients";
@@ -61,7 +61,7 @@ const SUMMARIES: Record<number, string[]> = {
         "Survey & technical due diligence.",
     ],
     4: [
-        "Offer → CPCV → deed with funds ready.",
+        "Offer + CPCV + deed with funds ready.",
         "Clear milestones to completion.",
     ],
     5: [
@@ -100,6 +100,15 @@ export default function FiveStepCards() {
                 aria-label="Five step journey"
             >
                 <div className="mx-auto max-w-7xl px-4 md:px-6">
+                    <div className="mx-auto max-w-[65ch] text-center mb-10 md:mb-12">
+                        <p className="text-sm font-semibold uppercase tracking-wide text-sky-600">Five-Step Journey</p>
+                        <h2 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
+                            5 Steps to Buying a Home in Portugal with Professional Support
+                        </h2>
+                        <p className="mt-4 text-base md:text-lg leading-relaxed text-slate-600">
+                            Follow our proven 5-step system with verified English-speaking professionals guiding you through every step. From initial consultation to final escritura, our network ensures a smooth property buying journey in Portugal.
+                        </p>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 md:gap-6">
                         {STEPS.map((s, idx) => {
                             const isFlipped = flipped[idx];
@@ -178,3 +187,4 @@ export default function FiveStepCards() {
         </MotionConfig>
     );
 }
+
