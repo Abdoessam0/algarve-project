@@ -2,11 +2,11 @@
 import { motion } from 'framer-motion';
 
 const steps = [
-    { n: 1, title: 'Brief & Budget', href: '/5-steps' },
-    { n: 2, title: 'Legal Kit', href: '/5-steps' },
-    { n: 3, title: 'Property Due Diligence', href: '/5-steps' },
-    { n: 4, title: 'Secure Purchase', href: '/5-steps' },
-    { n: 5, title: 'Autopilot Ownership', href: '/5-steps' },
+    { n: 1, title: 'Brief & Budget', href: '/roadmap#step-1' },
+    { n: 2, title: 'Legal Kit', href: '/roadmap#step-2' },
+    { n: 3, title: 'Property Due Diligence', href: '/roadmap#step-3' },
+    { n: 4, title: 'Secure Purchase', href: '/roadmap#step-4' },
+    { n: 5, title: 'Autopilot Ownership', href: '/roadmap#step-5' },
 ];
 
 export function StepsSummary() {

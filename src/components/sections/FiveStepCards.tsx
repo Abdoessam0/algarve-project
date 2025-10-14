@@ -1,5 +1,6 @@
 ﻿"use client";
 import React from 'react';
+import Link from "next/link";
 import { motion, useReducedMotion, MotionConfig } from 'framer-motion';
 import { stepGradients } from "@/utils/gradients";
 import { CheckCircle } from "lucide-react";
@@ -15,58 +16,63 @@ const STEPS: Step[] = [
         num: 1,
         title: "Brief & Budget",
         body:
-            "Start your property journey by defining your goals, budget, and requirements. This foundational step combines initial orientation with financial planning to set clear expectations for your property search in Portugal.",
+            "Structured orientation covering buyer brief, financing capacity, and Algarve market intelligence so every decision is anchored to realistic outcomes.",
         // gradient is now handled by stepGradients
     },
     {
         num: 2,
         title: "Legal Kit",
         body:
-            "Essential legal documentation and requirements for foreign property buyers in Portugal. Learn about NIF, bank accounts, and power of attorney.",
+            "Comprehensive legal preparation for Portuguese transactions, aligning tax registration, representation, and banking so you are deal-ready the moment the right home appears.",
         // gradient is now handled by stepGradients
     },
     {
         num: 3,
         title: "Property Due Diligence",
         body:
-            "Essential checks and professional services for a secure property purchase in Portugal.",
+            "Integrated legal, technical, and financial verification to benchmark Algarve properties and uncover hidden risks before you commit to a CPCV.",
         // gradient is now handled by stepGradients
     },
     {
         num: 4,
         title: "Secure Purchase",
         body:
-            "Navigate the purchase process with confidence, from offer to completion. This step combines negotiation, due diligence, and final transaction procedures.",
+            "Guided path from offer acceptance to escritura, coordinating contracts, escrow, financing, and completion logistics with your advisors.",
         // gradient is now handled by stepGradients
     },
     {
         num: 5,
         title: "Autopilot Ownership",
         body:
-            "Enjoy your new property with ongoing support and management services. This step covers post-purchase services and long-term property management.",
+            "Post-completion services that transition the property into a managed Algarve asset with utilities, compliance, and lifestyle support on autopilot.",
         // gradient is now handled by stepGradients
     },
 ];
 const SUMMARIES: Record<number, string[]> = {
     1: [
-        "Define goals, budget, and must-haves.",
-        "Align expectations and plan financing.",
+        "Define goals & must-haves",
+        "Set purchase budget & financing plan",
+        "Shortlist Algarve locations",
     ],
     2: [
-        "Get NIF and open a bank account.",
-        "Set Power of Attorney if needed.",
+        "Get NIF & bank account",
+        "Power of Attorney (if remote)",
+        "Engage English-speaking lawyer",
     ],
     3: [
-        "Run legal/title checks with a lawyer.",
-        "Survey & technical due diligence.",
+        "Land registry & debt checks",
+        "Planning/municipality searches",
+        "Technical survey (as needed)",
     ],
     4: [
-        "Offer + CPCV + deed with funds ready.",
-        "Clear milestones to completion.",
+        "Offer & CPCV milestones",
+        "Funds, KYC, and deed day prep",
+        "Final signatures & keys",
     ],
     5: [
-        "Bills, services, rentals & management.",
-        "Ongoing local support after purchase.",
+        "Utilities & services setup",
+        "Rental/management options",
+        "Ongoing local support",
     ],
 };
 
@@ -125,6 +131,9 @@ export default function FiveStepCards() {
                                     onMouseLeave={hoverable ? () => handleFlip(idx, false) : undefined}
                                     onClick={() => handleFlip(idx)}
                                     onKeyDown={(e) => {
+                                        if (e.target !== e.currentTarget) {
+                                            return;
+                                        }
                                         if (e.key === 'Enter' || e.key === ' ') {
                                             e.preventDefault();
                                             handleFlip(idx);
@@ -166,7 +175,7 @@ export default function FiveStepCards() {
                                             aria-hidden={!isFlipped}
                                         >
                                             <div className="flex h-full flex-col">
-                                                <ul className="space-y-3 text-sm md:text-base leading-7">
+                                                <ul className="space-y-2 text-sm leading-5">
                                                     {SUMMARIES[s.num].map((line, i) => (
                                                         <li key={i} className="flex items-start gap-2">
                                                             <CheckCircle className="mt-1 h-4 w-4 shrink-0 opacity-90" />
@@ -181,6 +190,14 @@ export default function FiveStepCards() {
                                 </div>
                             );
                         })}
+                    </div>
+                    <div className="mt-8 flex justify-center">
+                        <Link
+                            href="/roadmap"
+                            className="inline-flex items-center rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-md ring-1 ring-black/5 transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:ring-sky-200"
+                        >
+                            Explore 5-Step Journey
+                        </Link>
                     </div>
                 </div>
             </section>

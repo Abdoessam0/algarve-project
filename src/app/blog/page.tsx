@@ -80,7 +80,7 @@ export default async function BlogPage() {
       <section className="relative overflow-hidden bg-slate-900 text-white">
         <div className="absolute inset-0">
           <Image
-            src="/blog_hero.webp"
+            src="/blog_hero2.webp"
             alt="Lisbon skyline at dusk"
             fill
             priority
@@ -138,7 +138,7 @@ export default async function BlogPage() {
               </h2>
               <Link
                 href="/news"
-                  className="text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                className="text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               >
                 View News
               </Link>
