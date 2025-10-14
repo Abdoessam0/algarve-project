@@ -1,10 +1,11 @@
-// src/app/professionals/page.tsx
+﻿// src/app/professionals/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { meta } from "@/lib/seo";
 import BackToTop from "./BackToTop";
 import SpecializationsClient from "./SpecializationsClient";
+import { Briefcase, MapPin, ThumbsUp, Clock } from "lucide-react";
 import {
   getAllAccountants,
   getAllAgents,
@@ -58,17 +59,17 @@ export default async function ProfessionalsPage() {
     electricians.length;
 
   const stats = [
-    { label: "Premium Professionals", value: totalPros || 1200, icon: "👑" },
-    { label: "Exclusive Areas", value: locations.length || 25, icon: "📍" },
-    { label: "Client Satisfaction", value: "99%", icon: "⭐" },
-    { label: "Avg Response", value: "1–3h", icon: "⏱" },
-  ];
+    { label: "Premium Professionals", value: totalPros || 1200, Icon: Briefcase },
+    { label: "Exclusive Areas", value: locations.length || 25, Icon: MapPin },
+    { label: "Client Satisfaction", value: "99%", Icon: ThumbsUp },
+    { label: "Avg Response", value: "1–3h", Icon: Clock },
+  ] as const;
 
   const premiumItems = [
-    { title: "Agents", href: "/professionals/agents", src: "/english-speaking-agents.jpg" },
-    { title: "Lawyers", href: "/professionals/lawyers", src: "/english-speaking-lawyers.webp" },
-    { title: "Architects", href: "/professionals/architects", src: "/english-speaking-architects.jpg" },
-    { title: "Constructors", href: "/professionals/constructors", src: "/english-speaking-constructors.webp" },
+    { title: "Agents", href: "/professionals#specializations", src: "/english-speaking-agents.jpg" },
+    { title: "Lawyers", href: "/professionals#specializations", src: "/english-speaking-lawyers.webp" },
+    { title: "Architects", href: "/professionals#specializations", src: "/english-speaking-architects.jpg" },
+    { title: "Constructors", href: "/professionals#specializations", src: "/english-speaking-constructors.webp" },
   ] as const;
 
   const breadcrumbLd = {
@@ -83,7 +84,7 @@ export default async function ProfessionalsPage() {
   const serviceLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: "Real Estate Algarve — Verified Professionals",
+    name: "Real Estate Algarve â€” Verified Professionals",
     areaServed: "Algarve, Portugal",
     url: "/professionals",
     serviceType: [
@@ -116,7 +117,7 @@ export default async function ProfessionalsPage() {
               <li>
                 <Link href="/" className="hover:underline">Home</Link>
               </li>
-              <li aria-hidden="true">›</li>
+              <li aria-hidden="true">â€º</li>
               <li className="font-medium">Real Estate Professionals</li>
             </ol>
           </nav>
@@ -142,11 +143,13 @@ export default async function ProfessionalsPage() {
 
           {/* Glass stats */}
           <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 md:absolute md:right-6 md:top-24 md:w-[520px]">
-            {stats.map((s) => (
-              <div key={s.label} className="rounded-2xl backdrop-blur bg-white/30 text-white border border-white/40 p-4 shadow-sm">
-                <div className="text-2xl">{s.icon}</div>
-                <div className="mt-1 text-xl font-semibold">{s.value}</div>
-                <div className="text-xs">{s.label}</div>
+            {stats.map(({ label, value, Icon }) => (
+              <div key={label} className="rounded-2xl backdrop-blur bg-white/30 text-white border border-white/40 p-4 shadow-sm">
+                <div className="text-2xl">
+                  <Icon className="h-6 w-6" aria-hidden="true" />
+                </div>
+                <div className="mt-1 text-xl font-semibold">{value}</div>
+                <div className="text-xs">{label}</div>
               </div>
             ))}
           </div>
@@ -254,3 +257,5 @@ export default async function ProfessionalsPage() {
     </div>
   );
 }
+
+
