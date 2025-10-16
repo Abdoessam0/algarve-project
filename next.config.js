@@ -4,6 +4,11 @@ const nextConfig = {
     async redirects() {
         return [
             {
+                source: "/areas",
+                destination: "/algarve-real-estate-areas",
+                permanent: true,
+            },
+            {
                 source: "/cv",
                 destination: "/professionals",
                 permanent: true,

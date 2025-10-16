@@ -2,7 +2,6 @@
 import React from 'react';
 import Link from "next/link";
 import { motion, useReducedMotion, MotionConfig } from 'framer-motion';
-import { stepGradients } from "@/utils/gradients";
 import { CheckCircle } from "lucide-react";
 
 type Step = {
@@ -14,40 +13,36 @@ type Step = {
 const STEPS: Step[] = [
     {
         num: 1,
-        title: "Brief & Budget",
+        title: "Define Your Goals",
         body:
-            "Structured orientation covering buyer brief, financing capacity, and Algarve market intelligence so every decision is anchored to realistic outcomes.",
-        // gradient is now handled by stepGradients
+            "What type of property are you looking for? Investment, family home, or relocation?",
     },
     {
         num: 2,
-        title: "Legal Kit",
+        title: "Understand the Market",
         body:
-            "Comprehensive legal preparation for Portuguese transactions, aligning tax registration, representation, and banking so you are deal-ready the moment the right home appears.",
-        // gradient is now handled by stepGradients
+            "Data insights, neighborhoods, pricing trends — all simplified.",
     },
     {
         num: 3,
-        title: "Property Due Diligence",
+        title: "Build Your Team",
         body:
-            "Integrated legal, technical, and financial verification to benchmark Algarve properties and uncover hidden risks before you commit to a CPCV.",
-        // gradient is now handled by stepGradients
+            "We connect you with vetted local professionals (agents, lawyers, banks).",
     },
     {
         num: 4,
-        title: "Secure Purchase",
+        title: "Buy With Confidence",
         body:
-            "Guided path from offer acceptance to escritura, coordinating contracts, escrow, financing, and completion logistics with your advisors.",
-        // gradient is now handled by stepGradients
+            "From negotiation to legal process — every step mapped out clearly.",
     },
     {
         num: 5,
-        title: "Autopilot Ownership",
+        title: "Move & Optimize",
         body:
-            "Post-completion services that transition the property into a managed Algarve asset with utilities, compliance, and lifestyle support on autopilot.",
-        // gradient is now handled by stepGradients
+            "Post-purchase support — renovation, rental management, and relocation tips.",
     },
 ];
+
 const SUMMARIES: Record<number, string[]> = {
     1: [
         "Define goals & must-haves",
@@ -90,7 +85,6 @@ function useHoverable() {
 }
 
 export default function FiveStepCards() {
-    // Call hook unconditionally to satisfy rules-of-hooks
     const prefersReduced = useReducedMotion();
     const hoverable = useHoverable();
     const [flipped, setFlipped] = React.useState<boolean[]>(Array(STEPS.length).fill(false));
@@ -102,20 +96,20 @@ export default function FiveStepCards() {
     return (
         <MotionConfig transition={prefersReduced ? { duration: 0.2 } : { type: "spring", stiffness: 240, damping: 20 }}>
             <section
-                className="relative py-8 sm:py-12 lg:py-16"
-                aria-label="Five step journey"
+                className="relative py-16 lg:py-20"
+                aria-label="Five step roadmap"
             >
-                <div className="mx-auto max-w-7xl px-4 md:px-6">
-                    <div className="mx-auto max-w-[65ch] text-center mb-10 md:mb-12">
-                        <p className="text-sm font-semibold uppercase tracking-wide text-sky-600">Five-Step Journey</p>
-                        <h2 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
-                            5 Steps to Buying a Home in Portugal with Professional Support
+                <div className="mx-auto max-w-7xl px-4 lg:px-6">
+                    <div className="mx-auto mb-16 max-w-3xl text-center">
+                        <p className="text-sm font-semibold uppercase tracking-wider text-sky-600">The 5-Step Algarve Property Roadmap</p>
+                        <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900">
+                            Your Complete Path to Algarve Property Ownership
                         </h2>
-                        <p className="mt-4 text-base md:text-lg leading-relaxed text-slate-600">
-                            Follow our proven 5-step system with verified English-speaking professionals guiding you through every step. From initial consultation to final escritura, our network ensures a smooth property buying journey in Portugal.
+                        <p className="mt-6 text-lg leading-relaxed text-slate-600">
+                            Follow our proven 5-step roadmap with verified English-speaking professionals guiding you through every milestone. From defining your goals to post-purchase optimization, we ensure a seamless Algarve property journey.
                         </p>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 md:gap-6">
+                    <div className="grid auto-rows-fr grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5 lg:gap-5">
                         {STEPS.map((s, idx) => {
                             const isFlipped = flipped[idx];
                             const desktopHover = hoverable && !prefersReduced ? "md:group-hover:[transform:rotateY(180deg)]" : "";
@@ -126,7 +120,7 @@ export default function FiveStepCards() {
                                     tabIndex={0}
                                     aria-labelledby={`title-${s.num}`}
                                     aria-expanded={isFlipped}
-                                    className="group relative [perspective:1400px] min-h-[260px] md:min-h-[300px] overflow-visible focus:outline-none focus:ring-2 focus:ring-white/40 rounded-3xl"
+                                    className="group relative h-[400px] cursor-pointer perspective-1000 rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 transition-shadow hover:shadow-lg"
                                     onMouseEnter={hoverable ? () => handleFlip(idx, true) : undefined}
                                     onMouseLeave={hoverable ? () => handleFlip(idx, false) : undefined}
                                     onClick={() => handleFlip(idx)}
@@ -141,7 +135,7 @@ export default function FiveStepCards() {
                                     }}
                                 >
                                     <motion.div
-                                        className={`relative h-full w-full transition-transform duration-700 ${!prefersReduced ? 'ease-[cubic-bezier(0.2,0.8,0.2,1)]' : ''} [transform-style:preserve-3d] ${desktopHover}`}
+                                        className={`relative h-full w-full transition-transform duration-700 ${!prefersReduced ? 'ease-[cubic-bezier(0.2,0.8,0.2,1)]' : ''} preserve-3d ${desktopHover}`}
                                         animate={
                                             prefersReduced ? { rotateY: 0 } : { rotateY: isFlipped ? 180 : 0 }
                                         }
@@ -151,52 +145,69 @@ export default function FiveStepCards() {
                                     >
                                         {/* FRONT FACE */}
                                         <div
-                                            className={
-                                                `absolute inset-0 rounded-3xl p-6 md:p-8 shadow-lg md:shadow-xl ${stepGradients[s.num]} text-white [backface-visibility:hidden] before:content-[''] before:absolute before:inset-0 before:rounded-3xl before:-z-10 before:blur-2xl before:opacity-30 before:bg-white/10 md:group-hover:-translate-y-1 md:group-hover:rotate-x-[1.5deg] md:group-hover:-rotate-y-[1.5deg] transition-all duration-300`
-                                            }
+                                            className="absolute inset-0 backface-hidden flex h-full flex-col bg-white p-6 text-slate-900"
                                             style={prefersReduced ? { opacity: isFlipped ? 0 : 1, transition: 'opacity 200ms' } : undefined}
                                             aria-hidden={isFlipped}
                                         >
-                                            <div className="flex flex-col h-full">
-                                                <span className="text-6xl font-black leading-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]">{s.num}</span>
-                                                <h3 id={`title-${s.num}`} className="mt-3 text-2xl md:text-[1.55rem] font-extrabold tracking-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]">{s.title}</h3>
-                                                <div className="ml-auto mt-auto self-end rounded-full bg-white/20 text-white text-[11px] px-2 py-0.5 backdrop-blur-sm">Tap to see summary</div>
+                                            <div className="mb-4">
+                                                <span className="inline-block text-xs font-bold uppercase tracking-wider text-sky-600">
+                                                    Step {s.num}
+                                                </span>
+                                            </div>
+                                            <span className="mb-4 text-6xl font-bold leading-none text-sky-600">{s.num}</span>
+                                            <h3
+                                                id={`title-${s.num}`}
+                                                className="mb-3 text-xl font-bold text-slate-900 leading-tight break-words"
+                                            >
+                                                {s.title}
+                                            </h3>
+                                            <p className="flex-1 text-sm text-slate-600 leading-relaxed break-words">
+                                                {s.body}
+                                            </p>
+                                            <div className="mt-4 flex justify-center">
+                                                <span className="text-xs text-slate-400">
+                                                    Hover to see actions
+                                                </span>
                                             </div>
                                         </div>
 
                                         {/* BACK FACE */}
                                         <div
                                             className={[
-                                                "absolute inset-0 rounded-3xl p-6 md:p-8",
-                                                prefersReduced ? "" : "[transform:rotateY(180deg)] [backface-visibility:hidden]",
-                                                "backdrop-blur-xl bg-neutral-900/80 text-white"
+                                                "absolute inset-0 backface-hidden flex h-full flex-col bg-gradient-to-br from-sky-500 to-blue-600 p-6 text-white",
+                                                prefersReduced ? "" : "[transform:rotateY(180deg)]"
                                             ].join(" ")}
                                             style={prefersReduced ? { opacity: isFlipped ? 1 : 0, transition: 'opacity 200ms' } : undefined}
                                             aria-hidden={!isFlipped}
                                         >
-                                            <div className="flex h-full flex-col">
-                                                <ul className="space-y-2 text-sm leading-5">
+                                            <span className="inline-flex items-center rounded-full bg-white/20 backdrop-blur-sm px-3 py-1 text-xs font-semibold text-white mb-5 self-start">
+                                                Key Actions
+                                            </span>
+                                            <div className="flex-1 flex items-center">
+                                                <ul className="space-y-3.5 w-full">
                                                     {SUMMARIES[s.num].map((line, i) => (
-                                                        <li key={i} className="flex items-start gap-2">
-                                                            <CheckCircle className="mt-1 h-4 w-4 shrink-0 opacity-90" />
-                                                            <span>{line}</span>
+                                                        <li key={i} className="flex items-start gap-2.5">
+                                                            <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-white" />
+                                                            <span className="text-sm text-white leading-relaxed break-words">
+                                                                {line}
+                                                            </span>
                                                         </li>
                                                     ))}
                                                 </ul>
-                                                <span className="mt-auto text-[11px] text-white/70">Tap again to flip back</span>
                                             </div>
+                                            <span className="mt-5 text-xs text-white/70 text-center">Hover out to flip back</span>
                                         </div>
                                     </motion.div>
                                 </div>
                             );
                         })}
                     </div>
-                    <div className="mt-8 flex justify-center">
+                    <div className="mt-12 flex justify-center">
                         <Link
                             href="/roadmap"
-                            className="inline-flex items-center rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-md ring-1 ring-black/5 transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:ring-sky-200"
+                            className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-8 py-4 text-base font-semibold text-slate-900 shadow-sm transition-all hover:bg-slate-50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-500"
                         >
-                            Explore 5-Step Journey
+                            Explore 5-Step Roadmap
                         </Link>
                     </div>
                 </div>
@@ -204,4 +215,3 @@ export default function FiveStepCards() {
         </MotionConfig>
     );
 }
-

@@ -1,6 +1,6 @@
 "use client";
 
-// src/components/steps/layout/Navbar.tsx
+// src/components/layout/Navbar.tsx
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -27,12 +27,12 @@ export default function Navbar() {
                     <Link href="/professionals" className="hover:text-black">Professionals</Link>
                     <Link href="/news" className="hover:text-black">News</Link>
                     <Link href="/blog" className="hover:text-black">Blog</Link>
-                    <Link href="/areas" className="hover:text-black">Explore</Link>
+                    <Link href="/algarve-real-estate-areas" className="hover:text-black">Explore</Link>
                 </div>
 
                 {/* Mobile menu button */}
                 <button aria-label="Toggle menu" className="md:hidden p-2 rounded hover:bg-gray-100" onClick={() => setOpen(v => !v)}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
                 </button>
 
                 {/* Auth (right) */}
@@ -99,7 +99,7 @@ export default function Navbar() {
                         <Link onClick={() => setOpen(false)} href="/professionals" className="hover:text-black">Professionals</Link>
                         <Link onClick={() => setOpen(false)} href="/news" className="hover:text-black">News</Link>
                         <Link onClick={() => setOpen(false)} href="/blog" className="hover:text-black">Blog</Link>
-                        <Link onClick={() => setOpen(false)} href="/areas" className="hover:text-black">Explore</Link>
+                        <Link onClick={() => setOpen(false)} href="/algarve-real-estate-areas" className="hover:text-black">Explore</Link>
                         <div className="pt-2 flex items-center gap-3">
                             {user ? (
                                 <>

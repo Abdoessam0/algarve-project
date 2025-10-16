@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd()) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-white text-gray-900">
+      <body className="min-h-screen flex flex-col bg-sand-50 text-ink-900 font-sans antialiased">
         <AuthProvider>
           <Navbar />
           <main className="flex-1 pt-16 md:pt-0">{children}</main>
