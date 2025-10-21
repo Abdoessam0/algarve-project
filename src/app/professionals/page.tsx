@@ -107,7 +107,7 @@ export default async function ProfessionalsPage() {
           <div
             aria-hidden
             className="h-full w-full bg-center bg-cover"
-            style={{ backgroundImage: 'url(/newphoto2.jpg)' }}
+            style={{ backgroundImage: 'url(/newphoto.jpg)' }}
           />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/70 to-slate-900/85" />
         </div>

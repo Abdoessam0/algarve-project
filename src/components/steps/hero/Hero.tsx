@@ -9,7 +9,7 @@ export default function Hero() {
       {/* Background image with overlay */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/newphoto.jpg"
+          src="/newphoto2.jpg"
           alt="Algarve coastline at sunset"
           fill
           priority
