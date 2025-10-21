@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Metadata } from 'next';
 import { Home, Mail, ChevronRight, ArrowLeft, CheckCircle2 } from 'lucide-react';
 
 export default function ForgotPasswordPage() {
@@ -63,7 +62,7 @@ export default function ForgotPasswordPage() {
                         </Link>
 
                         <p className="text-sm text-slate-500 mt-6">
-                            Didn't receive the email?{' '}
+                            Didn&apos;t receive the email?{' '}
                             <button
                                 onClick={() => setSuccess(false)}
                                 className="text-slate-900 font-semibold hover:text-slate-700 transition-colors"
@@ -95,7 +94,7 @@ export default function ForgotPasswordPage() {
                         Reset Password
                     </h1>
                     <p className="text-slate-600 font-light text-lg">
-                        We'll send you reset instructions
+                        We&apos;ll send you reset instructions
                     </p>
                 </div>
 
@@ -126,7 +125,7 @@ export default function ForgotPasswordPage() {
                         </div>
 
                         <p className="text-sm text-slate-600 leading-relaxed pt-2">
-                            Enter the email address associated with your account and we'll send you a link to reset your password.
+                            Enter the email address associated with your account and we&apos;ll send you a link to reset your password.
                         </p>
 
                         {/* Submit Button */}

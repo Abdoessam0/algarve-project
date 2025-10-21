@@ -142,7 +142,7 @@ export default function LoginForm() {
         {/* Register Link */}
         <div className="mt-8 text-center pt-6 border-t border-slate-200/60">
           <p className="text-sm text-slate-600">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link
               href="/register"
               className="text-slate-900 font-semibold hover:text-slate-700 transition-colors"
