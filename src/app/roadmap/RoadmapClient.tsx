@@ -33,6 +33,7 @@ export type RoadmapStep = {
   subtitle: string;
   summary: string;
   sections: RoadmapSection[];
+  slug?: string;
 };
 
 type RoadmapClientProps = {
@@ -105,9 +106,10 @@ export default function RoadmapClient({ steps }: RoadmapClientProps) {
         <div className="space-y-6 md:space-y-8">
           {steps.map((step) => {
             const isOpen = openSteps.includes(step.number);
+            const stepSlug = step.slug ?? `step-${step.number}`;
             return (
               <article
-                id={`step-${step.number}`}
+                id={stepSlug}
                 key={step.number}
                 className={clsx(
                   "rounded-3xl border bg-white p-6 md:p-8 shadow-sm transition",
@@ -152,95 +154,96 @@ export default function RoadmapClient({ steps }: RoadmapClientProps) {
                 {isOpen ? (
                   <div id={`step-${step.number}`} className="mt-6 space-y-10">
                     {step.sections.map((section) => {
-                      const headingId = `${step.number}-${section.heading
+                      const headingSlug = section.heading
                         .toLowerCase()
-                        .replace(/[^a-z0-9]+/g, "-")}`;
+                        .replace(/[^a-z0-9]+/g, "-");
+                      const headingId = `${stepSlug}-${headingSlug}`;
                       return (
                         <section key={section.heading} aria-labelledby={headingId}>
-                        <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
-                          <h3
-                            id={headingId}
-                            className="text-lg font-semibold text-slate-900 md:text-xl"
-                          >
-                            {section.heading}
-                          </h3>
-                          {section.description ? (
-                            <p className="max-w-2xl text-sm text-slate-600 md:text-base md:text-right">
-                              {section.description}
-                            </p>
-                          ) : null}
-                        </div>
-
-                        {section.metrics ? (
-                          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                            {section.metrics.map((metric) => (
-                              <div
-                                key={`${section.heading}-${metric.label}`}
-                                className={clsx(
-                                  "rounded-2xl p-4 shadow-sm",
-                                  metricAccentStyles[metric.accent ?? "default"],
-                                )}
-                              >
-                                <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                                  {metric.label}
-                                </div>
-                                <div className="mt-2 text-xl font-semibold">{metric.value}</div>
-                                {metric.description ? (
-                                  <p className="mt-2 text-sm text-slate-600">
-                                    {metric.description}
-                                  </p>
-                                ) : null}
-                              </div>
-                            ))}
-                          </div>
-                        ) : null}
-
-                        {section.bullets ? (
-                          <ul className="mt-4 space-y-2 text-sm text-slate-700 md:text-base md:leading-relaxed">
-                            {section.bullets.map((item) => (
-                              <li key={item} className="flex items-start gap-2">
-                                <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-sky-500" />
-                                <span>{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        ) : null}
-
-                        {section.table ? (
-                          <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200">
-                            <table className="min-w-full divide-y divide-slate-200 text-sm text-slate-700">
-                              <thead className="bg-slate-100 text-xs font-semibold uppercase tracking-wide text-slate-600">
-                                <tr>
-                                  {section.table.columns.map((column) => (
-                                    <th key={column} className="px-4 py-3 text-left">
-                                      {column}
-                                    </th>
-                                  ))}
-                                </tr>
-                              </thead>
-                              <tbody className="bg-white">
-                                {section.table.rows.map((row, rowIdx) => (
-                                  <tr
-                                    key={`${section.heading}-row-${rowIdx}`}
-                                    className={rowIdx % 2 === 0 ? "bg-white" : "bg-slate-50/60"}
-                                  >
-                                    {row.cells.map((cell, cellIdx) => (
-                                      <td key={`cell-${cellIdx}`} className="px-4 py-3 align-top">
-                                        {cell}
-                                      </td>
-                                    ))}
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                            {section.table.footnote ? (
-                              <p className="bg-slate-50 px-4 py-3 text-xs text-slate-500">
-                                {section.table.footnote}
+                          <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
+                            <h3
+                              id={headingId}
+                              className="text-lg font-semibold text-slate-900 md:text-xl"
+                            >
+                              {section.heading}
+                            </h3>
+                            {section.description ? (
+                              <p className="max-w-2xl text-sm text-slate-600 md:text-base md:text-right">
+                                {section.description}
                               </p>
                             ) : null}
                           </div>
-                        ) : null}
-                      </section>
+
+                          {section.metrics ? (
+                            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                              {section.metrics.map((metric) => (
+                                <div
+                                  key={`${section.heading}-${metric.label}`}
+                                  className={clsx(
+                                    "rounded-2xl p-4 shadow-sm",
+                                    metricAccentStyles[metric.accent ?? "default"],
+                                  )}
+                                >
+                                  <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                                    {metric.label}
+                                  </div>
+                                  <div className="mt-2 text-xl font-semibold">{metric.value}</div>
+                                  {metric.description ? (
+                                    <p className="mt-2 text-sm text-slate-600">
+                                      {metric.description}
+                                    </p>
+                                  ) : null}
+                                </div>
+                              ))}
+                            </div>
+                          ) : null}
+
+                          {section.bullets ? (
+                            <ul className="mt-4 space-y-2 text-sm text-slate-700 md:text-base md:leading-relaxed">
+                              {section.bullets.map((item) => (
+                                <li key={item} className="flex items-start gap-2">
+                                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-sky-500" />
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : null}
+
+                          {section.table ? (
+                            <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200">
+                              <table className="min-w-full divide-y divide-slate-200 text-sm text-slate-700">
+                                <thead className="bg-slate-100 text-xs font-semibold uppercase tracking-wide text-slate-600">
+                                  <tr>
+                                    {section.table.columns.map((column) => (
+                                      <th key={column} className="px-4 py-3 text-left">
+                                        {column}
+                                      </th>
+                                    ))}
+                                  </tr>
+                                </thead>
+                                <tbody className="bg-white">
+                                  {section.table.rows.map((row, rowIdx) => (
+                                    <tr
+                                      key={`${section.heading}-row-${rowIdx}`}
+                                      className={rowIdx % 2 === 0 ? "bg-white" : "bg-slate-50/60"}
+                                    >
+                                      {row.cells.map((cell, cellIdx) => (
+                                        <td key={`cell-${cellIdx}`} className="px-4 py-3 align-top">
+                                          {cell}
+                                        </td>
+                                      ))}
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                              {section.table.footnote ? (
+                                <p className="bg-slate-50 px-4 py-3 text-xs text-slate-500">
+                                  {section.table.footnote}
+                                </p>
+                              ) : null}
+                            </div>
+                          ) : null}
+                        </section>
                       );
                     })}
                   </div>

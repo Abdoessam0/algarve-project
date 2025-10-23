@@ -121,7 +121,7 @@ export function CookiePolicyContent() {
               We are here to help you understand how we protect your data
             </p>
             <a
-              href="mailto:privacy@realestate-algarve.com"
+              href="mailto:contact@5stepsrealestate.com"
               className="inline-block px-8 py-3 bg-white text-slate-900 rounded-lg font-medium hover:bg-slate-100 transition-colors"
             >
               Contact Us

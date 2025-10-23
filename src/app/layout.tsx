@@ -3,8 +3,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { defaultSEO, organizationJsonLd, webSiteJsonLd } from "@/lib/seo";
-import Navbar from "@/components/steps/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import SiteShell from "@/components/layout/SiteShell";
 import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = defaultSEO;
@@ -26,9 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen flex flex-col bg-sand-50 text-ink-900 font-sans antialiased">
         <AuthProvider>
-          <Navbar />
-          <main className="flex-1 pt-16 md:pt-0">{children}</main>
-          <Footer />
+          <SiteShell>{children}</SiteShell>
         </AuthProvider>
       </body>
     </html>

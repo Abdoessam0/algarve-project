@@ -34,3 +34,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Development Notes
+
+- Browser extensions that inject attributes into the DOM (for example, the Chrome text-to-speech extension **SpeakIt!**) can add custom `bis_*` attributes to `<body>` during local development. This triggers React hydration warnings even though the server/client markup is identical. If you see hydration mismatch warnings mentioning `bis_register`, disable those extensions or use an incognito window without them while developing.

@@ -3,13 +3,21 @@
 // src/components/layout/Navbar.tsx
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { MAIN_NAV } from "@/config/nav";
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
     const { user, signOut } = useAuth();
     const [showUserMenu, setShowUserMenu] = useState(false);
+    const pathname = usePathname();
+
+    const navItems = MAIN_NAV;
+
+    const isActive = (href: string) => (pathname ?? "").startsWith(href);
+
     return (
         <header className="fixed md:sticky top-0 inset-x-0 z-50 w-full bg-white border-b shadow-sm">
             <nav className="container mx-auto flex items-center justify-between px-4 h-16">
@@ -24,10 +32,15 @@ export default function Navbar() {
 
                 {/* Links (center on desktop) */}
                 <div className="hidden md:flex items-center gap-6 text-sm text-gray-700">
-                    <Link href="/professionals" className="hover:text-black">Professionals</Link>
-                    <Link href="/news" className="hover:text-black">News</Link>
-                    <Link href="/blog" className="hover:text-black">Blog</Link>
-                    <Link href="/algarve-real-estate-areas" className="hover:text-black">Explore</Link>
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className={isActive(item.href) ? "text-black font-semibold" : "hover:text-black"}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
                 </div>
 
                 {/* Mobile menu button */}
@@ -96,10 +109,16 @@ export default function Navbar() {
             {open && (
                 <div className="md:hidden border-t bg-white">
                     <nav className="container mx-auto px-4 py-3 flex flex-col gap-3 text-gray-800 text-sm">
-                        <Link onClick={() => setOpen(false)} href="/professionals" className="hover:text-black">Professionals</Link>
-                        <Link onClick={() => setOpen(false)} href="/news" className="hover:text-black">News</Link>
-                        <Link onClick={() => setOpen(false)} href="/blog" className="hover:text-black">Blog</Link>
-                        <Link onClick={() => setOpen(false)} href="/algarve-real-estate-areas" className="hover:text-black">Explore</Link>
+                        {navItems.map((item) => (
+                            <Link
+                                key={item.href}
+                                onClick={() => setOpen(false)}
+                                href={item.href}
+                                className="hover:text-black"
+                            >
+                                {item.label}
+                            </Link>
+                        ))}
                         <div className="pt-2 flex items-center gap-3">
                             {user ? (
                                 <>

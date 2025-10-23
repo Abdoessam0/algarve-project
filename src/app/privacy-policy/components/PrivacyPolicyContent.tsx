@@ -135,8 +135,8 @@ export function PrivacyPolicyContent() {
                         </div>
                         <p className="text-sm text-slate-600 mt-6 font-light">
                             To exercise rights, email{" "}
-                            <a href="mailto:privacy@realestate-algarve.com" className="text-slate-900 underline decoration-slate-300 hover:decoration-slate-900 transition-colors">
-                                privacy@realestate-algarve.com
+                            <a href="mailto:contact@5stepsrealestate.com" className="text-slate-900 underline decoration-slate-300 hover:decoration-slate-900 transition-colors">
+                                contact@5stepsrealestate.com
                             </a>
                             {" "}or use our contact page.
                         </p>
@@ -173,8 +173,8 @@ export function PrivacyPolicyContent() {
                         </p>
                         <p className="font-light">
                             Email:{" "}
-                            <a href="mailto:privacy@realestate-algarve.com" className="underline decoration-slate-600 hover:decoration-white transition-colors">
-                                privacy@realestate-algarve.com
+                            <a href="mailto:contact@5stepsrealestate.com" className="underline decoration-slate-600 hover:decoration-white transition-colors">
+                                contact@5stepsrealestate.com
                             </a>
                         </p>
                     </section>

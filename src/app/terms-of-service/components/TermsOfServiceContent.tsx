@@ -116,8 +116,8 @@ export function TermsOfServiceContent() {
                     <section className="bg-slate-900 text-white rounded-2xl p-8">
                         <h2 className="text-2xl font-light mb-4">Contact</h2>
                         <p className="font-light leading-relaxed">
-                            <a href="mailto:support@realestate-algarve.com" className="underline decoration-slate-600 hover:decoration-white transition-colors">
-                                support@realestate-algarve.com
+                            <a href="mailto:support@5stepsrealestate.com" className="underline decoration-slate-600 hover:decoration-white transition-colors">
+                                support@5stepsrealestate.com
                             </a>
                             {" "}— Algarve, Portugal
                         </p>

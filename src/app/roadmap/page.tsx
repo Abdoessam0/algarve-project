@@ -1,22 +1,74 @@
 // src/app/roadmap/page.tsx
 import type { Metadata } from "next";
 import { meta } from "@/lib/seo";
+import { roadmapSteps as sharedRoadmapSteps } from "@/data/roadmap";
 import RoadmapClient, { type RoadmapStep } from "./RoadmapClient";
 
 export const metadata: Metadata = meta({
   title: "5-Step Property Roadmap | Real Estate Algarve",
   description:
-    "Follow the five-step Algarve property roadmap: from defining your brief and legal kit to due diligence, secure purchase, and autopilot ownership with trusted professionals.",
+    "Follow the five-step Algarve property roadmap: Define Your Goals, Understand the Market, Build Your Team, Buy With Confidence, and Move & Optimize with trusted professionals.",
   canonical: "/roadmap",
 });
 
+const roadmapAnchors = [
+  "define-your-goals",
+  "understand-the-market",
+  "build-your-team",
+  "buy-with-confidence",
+  "move-and-optimize",
+] as const;
+
+const metaSteps = sharedRoadmapSteps;
+
 const ROADMAP_STEPS: RoadmapStep[] = [
   {
-    number: 1,
-    title: "Brief & Budget",
-    subtitle: "Define objectives, financing, and Algarve market benchmarks.",
+    number: Number(metaSteps[0]?.number ?? 1),
+    title: metaSteps[0]?.title ?? "Define Your Goals",
+    subtitle:
+      "Clarify lifestyle outcomes, budget, and non-negotiables before we engage the market.",
     summary:
-      "We map your lifestyle goals, investment criteria, and funding strategy against Portugal market data to anchor the search plan.",
+      "We translate your objectives into a structured Algarve acquisition brief, aligning financing, travel windows, and decision timelines.",
+    slug: roadmapAnchors[0],
+    sections: [
+      {
+        heading: "Lifestyle & Investment Blueprint",
+        bullets: [
+          "Document relocation, lifestyle, or rental yield priorities and the Algarve experiences you expect.",
+          "List essential property features including bedroom counts, architectural style, outdoor space, and renovation appetite.",
+          "Establish target budget ranges covering purchase price, closing costs, furnishings, and improvement reserves.",
+          "Define decision-makers, approval process, and readiness to transact in person or through attorneys.",
+        ],
+      },
+      {
+        heading: "Financing and Planning Checklist",
+        description:
+          "Timeline the first 90 days so scouting trips convert into actionable offers.",
+        bullets: [
+          "Align purchase ceiling, deposit strategy, and available cash versus financing.",
+          "Run affordability scenarios with Portuguese lenders to validate loan-to-value ratios.",
+          "Plan scouting trip windows, remote viewing alternatives, and decision committees.",
+          "Document travel logistics, school or lifestyle needs, and rental yield targets.",
+        ],
+      },
+      {
+        heading: "Outputs from Step 1",
+        bullets: [
+          "A written Algarve buyer brief covering property type, lifestyle goals, and rental strategy.",
+          "Budget model with acquisition, taxes, furnishings, and first-year holding costs.",
+          "90-day search calendar including professional consultations and mock offer timeline.",
+        ],
+      },
+    ],
+  },
+  {
+    number: Number(metaSteps[1]?.number ?? 2),
+    title: metaSteps[1]?.title ?? "Understand the Market",
+    subtitle:
+      "Use Algarve market analytics to target the right neighbourhoods and price bands.",
+    summary:
+      "We pair your brief with comparable sales, supply pipelines, and rental data so you focus on zones delivering the lifestyle and returns you expect.",
+    slug: roadmapAnchors[1],
     sections: [
       {
         heading: "Macro-Market Snapshot 2024-2025",
@@ -92,31 +144,32 @@ const ROADMAP_STEPS: RoadmapStep[] = [
         },
       },
       {
-        heading: "Financing and Planning Checklist",
-        description: "Timeline the first 90 days so scouting trips convert into actionable offers.",
+        heading: "Market Discovery Checklist",
         bullets: [
-          "Align purchase ceiling, deposit strategy, and available cash versus financing.",
-          "Run affordability scenarios with Portuguese lenders to validate loan-to-value ratios.",
-          "Plan scouting trip windows, remote viewing alternatives, and decision committees.",
-          "Document travel logistics, school or lifestyle needs, and rental yield targets.",
+          "Prioritise Algarve municipalities based on commute times, school access, and coastal lifestyle expectations.",
+          "Compare turnkey versus renovation inventory to identify value-add opportunities within your risk profile.",
+          "Model rental yield scenarios across peak, shoulder, and off-season periods.",
+          "Track infrastructure upgrades, hospitality launches, and marina expansions that influence long-term appreciation.",
         ],
       },
       {
-        heading: "Outputs from Step 1",
+        heading: "Outputs from Step 2",
         bullets: [
-          "A written Portugal buyer brief covering property type, lifestyle goals, and rental strategy.",
-          "Budget model with acquisition, taxes, furnishings, and first-year holding costs.",
-          "90-day search calendar including professional consultations and mock offer timeline.",
+          "Curated shortlist of Algarve neighbourhoods mapped to lifestyle and investment criteria.",
+          "Data-backed pricing bands for villas, townhouses, and apartments within scope.",
+          "Preliminary rental yield and appreciation assumptions to validate your business case.",
         ],
       },
     ],
   },
   {
-    number: 2,
-    title: "Legal Kit",
-    subtitle: "Prepare compliant documentation and representation before you offer.",
+    number: Number(metaSteps[2]?.number ?? 3),
+    title: metaSteps[2]?.title ?? "Build Your Team",
+    subtitle:
+      "Assemble bilingual specialists who protect your interests end-to-end.",
     summary:
-      "We assemble the Portuguese legal infrastructure so funds, decision-making, and due diligence can move at offer speed.",
+      "Our verified Algarve network covers legal, tax, financing, engineering, and property management so you can execute decisions quickly and safely.",
+    slug: roadmapAnchors[2],
     sections: [
       {
         heading: "Compliance Foundation",
@@ -145,47 +198,24 @@ const ROADMAP_STEPS: RoadmapStep[] = [
         },
       },
       {
-        heading: "Professional Guidance",
+        heading: "Core Advisory Bench",
         bullets: [
           "Engage bilingual property lawyer with Algarve transaction experience.",
-          "Coordinate with tax advisor on ownership structure and wealth planning.",
-          "Confirm notary preferences and translation support for deed day.",
+          "Coordinate with tax advisor on ownership structure, wealth planning, and NHR considerations.",
+          "Confirm notary preferences, translation support, and escrow mechanics for deed day.",
           "Register for digital signature tools used by Portuguese authorities (DocuSign equivalents).",
         ],
       },
       {
-        heading: "Outputs from Step 2",
+        heading: "Due Diligence Network",
+        description:
+          "Beyond legal counsel, we mobilise surveyors, engineers, and property managers to de-risk each shortlist candidate.",
         bullets: [
-          "Fully documented client file ready for offers, mortgage underwriting, and CPCV execution.",
-          "Appointed legal representative with power to act locally when you are abroad.",
-          "Bank account and capital transfer path compliant with Portuguese regulations.",
-        ],
-      },
-    ],
-  },
-  {
-    number: 3,
-    title: "Property Due Diligence",
-    subtitle: "Verify legal status, technical condition, and financial performance.",
-    summary:
-      "Every shortlisted property is benchmarked by lawyers, engineers, and analysts before deposits are released.",
-    sections: [
-      {
-        heading: "Legal Vetting",
-        bullets: [
-          "Collect land registry certificates, tax matrices, and condominium minutes.",
-          "Confirm planning permissions, usage classification, and habitation licence.",
-          "Review existing leases, encumbrances, and energy certificates.",
-          "Check outstanding utilities, condominium arrears, and municipal taxes.",
-        ],
-      },
-      {
-        heading: "Technical Survey",
-        bullets: [
-          "Commission structural engineer or surveyor for MEP, moisture, and roofing diagnostics.",
-          "Assess insulation, glazing, HVAC systems, and pool or elevator maintenance status.",
-          "Request renovation quotes and timelines where upgrades are required.",
-          "Validate inventory lists, furnishings, and warranties transferring at completion.",
+          "Lawyers collect land registry certificates, tax matrices, and condominium minutes to flag liabilities.",
+          "Specialists confirm planning permissions, use classifications, habitation licences, and outstanding utilities.",
+          "Engineers survey structure, MEP systems, waterproofing, and energy efficiency for renovation planning.",
+          "Contractors prepare scope, cost, and timeline benchmarks for upgrades or turnkey refresh projects.",
+          "Property managers validate inventory lists, warranties, and operational readiness for rental programs.",
         ],
       },
       {
@@ -205,19 +235,23 @@ const ROADMAP_STEPS: RoadmapStep[] = [
       {
         heading: "Outputs from Step 3",
         bullets: [
-          "Consolidated due diligence report with red, amber, green recommendations.",
-          "Negotiation points and price adjustments backed by technical evidence.",
-          "Go or no-go decision framework aligned with financing and rental targets.",
+          "Fully documented client file ready for offers, mortgage underwriting, and CPCV execution.",
+          "Appointed Algarve legal representative with authority to act locally when you are abroad.",
+          "Verified survey, engineering, and inspection partners allocated to each shortlisted property.",
+          "Negotiation levers documented from legal and technical reports, informing pricing strategy.",
+          "Go or no-go decision framework aligned with financing, compliance, and rental objectives.",
         ],
       },
     ],
   },
   {
-    number: 4,
-    title: "Secure Purchase",
-    subtitle: "Negotiate, contract, and fund the transaction with confidence.",
+    number: Number(metaSteps[3]?.number ?? 4),
+    title: metaSteps[3]?.title ?? "Buy With Confidence",
+    subtitle:
+      "Negotiate, contract, and fund the transaction with clarity at every milestone.",
     summary:
       "We choreograph the CPCV, escrow, mortgage, and deed logistics so completion stays on schedule.",
+    slug: roadmapAnchors[3],
     sections: [
       {
         heading: "Negotiation and CPCV Strategy",
@@ -249,14 +283,14 @@ const ROADMAP_STEPS: RoadmapStep[] = [
             },
             {
               cells: [
-                "Mortgage issuance",
-                "Bank to lawyer",
-                "Loan deed and life insurance finalised 4-6 weeks after appraisal.",
+                "Mortgage approval",
+                "As per lender",
+                "Submit valuation, underwriting docs, and bank account confirmations.",
               ],
             },
             {
               cells: [
-                "Final deed (Escritura)",
+                "Deed (Escritura)",
                 "Balance + taxes",
                 "Pay IMT, stamp duty, notary fees; register title within 20 days.",
               ],
@@ -264,6 +298,18 @@ const ROADMAP_STEPS: RoadmapStep[] = [
           ],
           footnote:
             "Always align transfer cut-off times with Portuguese banking hours and include contingency days for international wires.",
+        },
+      },
+      {
+        heading: "Key Stakeholder Calendar",
+        table: {
+          columns: ["Milestone", "Owner", "Timing"],
+          rows: [
+            { cells: ["Inspection reports", "Engineer / surveyor", "Within 10 days of CPCV"] },
+            { cells: ["Mortgage valuation", "Bank appraiser", "7-10 days post CPCV"] },
+            { cells: ["Insurance binding", "Buyer + broker", "5 days before deed"] },
+            { cells: ["Utility transfer", "Property manager", "Immediately after deed"] },
+          ],
         },
       },
       {
@@ -286,11 +332,12 @@ const ROADMAP_STEPS: RoadmapStep[] = [
     ],
   },
   {
-    number: 5,
-    title: "Autopilot Ownership",
-    subtitle: "Transition into operations, compliance, and lifestyle management.",
+    number: Number(metaSteps[4]?.number ?? 5),
+    title: metaSteps[4]?.title ?? "Move & Optimize",
+    subtitle: "Transition smoothly into operations, compliance, and lifestyle management.",
     summary:
       "After completion we ensure utilities, accounting, and property services run on autopilot with trusted Algarve partners.",
+    slug: roadmapAnchors[4],
     sections: [
       {
         heading: "Transfer and Setup",
@@ -362,3 +409,4 @@ export default function RoadmapPage() {
     </div>
   );
 }
+
