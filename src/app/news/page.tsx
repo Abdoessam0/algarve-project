@@ -31,7 +31,7 @@ export default async function NewsHome() {
       </div>
 
       <div className="mb-6">
-        <CategoriesStrip />
+        <CategoriesStrip active="all" />
       </div>
 
       <div className="mb-6">
@@ -45,16 +45,16 @@ export default async function NewsHome() {
       <section className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
         {/* TODO(scraping): map real cards here */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <div className="h-64 rounded-2xl border border-gray-200 bg-white" />
-          <div className="h-64 rounded-2xl border border-gray-200 bg-white" />
-          <div className="h-64 rounded-2xl border border-gray-200 bg-white" />
-          <div className="h-64 rounded-2xl border border-gray-200 bg-white" />
+          <div className="h-64 rounded-2xl border border-stone-200 bg-white" />
+          <div className="h-64 rounded-2xl border border-stone-200 bg-white" />
+          <div className="h-64 rounded-2xl border border-stone-200 bg-white" />
+          <div className="h-64 rounded-2xl border border-stone-200 bg-white" />
         </div>
         <SidebarListShell />
       </section>
 
       <section aria-labelledby="news-by-category" className="mt-16 space-y-10">
-        <h2 id="news-by-category" className="text-xl font-semibold text-gray-900">
+        <h2 id="news-by-category" className="text-xl font-semibold text-stone-900">
           News by Category
         </h2>
         <div className="space-y-12">

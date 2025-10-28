@@ -2,9 +2,13 @@ import type { ReactNode } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
+// Server Component
 type SiteShellProps = {
-  children: ReactNode;
-};
+  children: React.ReactNode
+  fullWidth?: boolean
+}
+
+
 
 export default function SiteShell({ children }: SiteShellProps) {
   return (

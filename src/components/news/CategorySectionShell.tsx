@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { normalizeText } from "@/lib/utils";
-
 type CategorySectionShellProps = {
   title: string;
   href?: string;
@@ -14,20 +12,23 @@ export default function CategorySectionShell({
   slots = 4,
 }: CategorySectionShellProps) {
   const slotCount = Math.max(1, slots);
-  const sectionId = `category-${normalizeText(title)}`;
+  const sectionId = `category-${title
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")}`;
 
   return (
     <section aria-labelledby={sectionId}>
       <div className="mb-4 flex items-center justify-between gap-4">
-        <h2 id={sectionId} className="text-xl font-semibold text-gray-900">
+        <h2 id={sectionId} className="text-xl font-semibold text-stone-900">
           {title}
         </h2>
         {href ? (
           <Link
             href={href}
-            className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+            className="text-sm font-medium text-stone-600 transition-colors hover:text-stone-900"
           >
-            View all →
+            View all
           </Link>
         ) : null}
       </div>
@@ -36,7 +37,7 @@ export default function CategorySectionShell({
         {Array.from({ length: slotCount }).map((_, index) => (
           <div
             key={index}
-            className="h-64 rounded-2xl border border-gray-200 bg-white"
+            className="h-64 rounded-2xl border border-stone-200 bg-white"
           />
         ))}
       </div>

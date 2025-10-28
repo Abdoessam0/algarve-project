@@ -1,42 +1,48 @@
 import Breadcrumbs from "@/components/news/Breadcrumbs";
-import SearchBar from "@/components/news/SearchBar";
-import CategoryPills from "@/components/news/CategoryPills";
+import CategoriesStrip from "@/components/news/CategoriesStrip";
+import CategoryHero from "@/components/news/CategoryHero";
+import CategorySectionShell from "@/components/news/CategorySectionShell";
 import SidebarListShell from "@/components/news/SidebarListShell";
 
 export const dynamic = "force-dynamic";
 
-type Props = { params: { category: string } };
+type Props = { params: Promise<{ category: string }> };
 
 export default async function CategoryPage({ params }: Props) {
-  const { category } = params; // TODO(scraping): validate via real categories
+  const { category } = await params; // TODO(scraping): validate via real categories
+  const displayCategory = category
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+
   return (
     <main className="container mx-auto px-4 py-8">
       <Breadcrumbs
-  items={[
-    { label: "Home", href: "/" },
-    { label: "News", href: "/news" },
-    { label: category },
-  ]}
-/>
+        items={[
+          { label: "Home", href: "/" },
+          { label: "News", href: "/news" },
+          { label: displayCategory },
+        ]}
+      />
 
-      <header className="mb-6">
-        <h1 className="text-2xl font-bold capitalize">{category}</h1>
-      </header>
-
-      <div className="mb-6">
-        <SearchBar />
+      <div className="mb-8">
+        <CategoriesStrip active={category} />
       </div>
-      <CategoryPills active={category} />
 
-      <section className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
-        {/* TODO(scraping): render category articles here */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <div className="h-64 rounded-2xl border border-stone-200 bg-white" />
-          <div className="h-64 rounded-2xl border border-stone-200 bg-white" />
-          <div className="h-64 rounded-2xl border border-stone-200 bg-white" />
-          <div className="h-64 rounded-2xl border border-stone-200 bg-white" />
-        </div>
-        <SidebarListShell />
+      <div className="mb-10">
+        <CategoryHero
+          title={displayCategory}
+          slug={category}
+          articleCountLabel=""
+          description=""
+        />
+        {/* TODO(scraping): fill hero props */}
+      </div>
+
+      <section className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <CategorySectionShell title={displayCategory} slots={6} />
+        <SidebarListShell title="Recent / Related" />
+        {/* TODO(scraping): replace shells with dynamic data */}
       </section>
     </main>
   );

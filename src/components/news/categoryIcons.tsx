@@ -31,8 +31,7 @@ export type CategorySlug =
   | "professional-news"
   | "sustainability-environment"
   | "technology"
-  | "tourism"
-    "Dr.Alia";
+  | "tourism";
 
 export const CATEGORY_ICONS: Record<CategorySlug, LucideIcon> = {
   "construction-updates": Building2,
@@ -49,7 +48,6 @@ export const CATEGORY_ICONS: Record<CategorySlug, LucideIcon> = {
   "sustainability-environment": Leaf,
   "technology": Cpu,
   "tourism": Plane,
-  "DR.Alia": Plane,
 };
 
 export function getCategoryIcon(slug?: string): LucideIcon {
