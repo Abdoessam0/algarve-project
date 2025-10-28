@@ -6,14 +6,14 @@ export default function PrevNextNav() {
     >
       <button
         type="button"
-        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-stone-200 bg-white px-6 py-3 text-sm font-medium text-stone-700 transition hover:border-stone-300 focus:outline-none focus:ring-2 focus:ring-stone-300 sm:w-auto"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-stone-200 bg-white px-6 py-3 text-sm font-medium text-stone-700 transition hover:border-stone-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-300 sm:w-auto"
       >
         {/* TODO(scraping): link previous article */}
         {"< Previous"}
       </button>
       <button
         type="button"
-        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-stone-200 bg-white px-6 py-3 text-sm font-medium text-stone-700 transition hover:border-stone-300 focus:outline-none focus:ring-2 focus:ring-stone-300 sm:w-auto"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-stone-200 bg-white px-6 py-3 text-sm font-medium text-stone-700 transition hover:border-stone-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-300 sm:w-auto"
       >
         {/* TODO(scraping): link next article */}
         {"Next >"}

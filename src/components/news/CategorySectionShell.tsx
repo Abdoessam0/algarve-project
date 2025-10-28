@@ -26,7 +26,7 @@ export default function CategorySectionShell({
         {href ? (
           <Link
             href={href}
-            className="text-sm font-medium text-stone-600 transition-colors hover:text-stone-900"
+            className="rounded-sm text-sm font-medium text-stone-600 transition-colors hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-300"
           >
             View all
           </Link>

@@ -25,6 +25,9 @@ const LABELS = [
   "Tourism",
 ];
 
+const baseClasses =
+  "inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-300";
+
 export default function CategoriesStrip({ active = "all" }: CategoriesStripProps) {
   return (
     <section
@@ -34,16 +37,18 @@ export default function CategoriesStrip({ active = "all" }: CategoriesStripProps
       <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
         CATEGORIES:
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label="News categories tabs">
         <Link
           href="/news"
+          role="tab"
+          aria-selected={active === "all"}
+          data-state={active === "all" ? "active" : "inactive"}
           className={[
-            "inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-300",
+            baseClasses,
             active === "all"
               ? "border-stone-900 bg-stone-900 text-white"
               : "border-stone-200 bg-stone-100 text-stone-800 hover:bg-stone-200",
           ].join(" ")}
-          aria-current={active === "all" ? "page" : undefined}
         >
           <Home className="h-4 w-4" aria-hidden />
           All
@@ -56,13 +61,15 @@ export default function CategoriesStrip({ active = "all" }: CategoriesStripProps
             <Link
               key={slug}
               href={`/news/${slug}`}
+              role="tab"
+              aria-selected={isActive}
+              data-state={isActive ? "active" : "inactive"}
               className={[
-                "inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-300",
+                baseClasses,
                 isActive
                   ? "border-stone-900 bg-stone-900 text-white"
                   : "border-stone-200 bg-stone-100 text-stone-800 hover:bg-stone-200",
               ].join(" ")}
-              aria-current={isActive ? "page" : undefined}
             >
               <Icon className="h-4 w-4" aria-hidden />
               {label}
