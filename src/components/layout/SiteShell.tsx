@@ -4,9 +4,9 @@ import Footer from "@/components/layout/Footer";
 
 // Server Component
 type SiteShellProps = {
-  children: React.ReactNode
-  fullWidth?: boolean
-}
+  children: ReactNode;
+  fullWidth?: boolean;
+};
 
 
 

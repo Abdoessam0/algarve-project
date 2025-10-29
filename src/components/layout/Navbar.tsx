@@ -23,7 +23,7 @@ export default function Navbar() {
             <nav className="container mx-auto flex items-center justify-between px-4 h-16">
                 {/* Brand (left) */}
                 <Link href="/" className="flex items-center gap-3">
-                    <Image src="/logo/favicon.ico" alt="Real Estate Algarve" width={40} height={40} priority />
+                    <Image src="/logo/favicon.ico" width={32} height={32} alt="Favicon" />
                     <span className="flex flex-col leading-tight">
                         <span className="text-lg font-semibold text-blue-600">Real Estate Algarve</span>
                         <span className="text-xs text-gray-500">Step-by-Step to Your Algarve Home</span>

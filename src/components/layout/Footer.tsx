@@ -1,14 +1,9 @@
 'use client';
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable react/no-unescaped-entities */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import Link from "next/link";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Image from "next/image";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { motion, AnimatePresence, type Variants } from "framer-motion";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { MapPin, Phone, Mail, Clock, Shield, Award, Users, Globe, Facebook, Twitter, Instagram, Linkedin, CheckCircle, Cookie, Settings, X, BarChart3 } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
+import { MapPin, Phone, Mail, Clock, Shield, Users, Globe, Facebook, Twitter, Instagram, Linkedin, CheckCircle, Cookie, Settings, X, BarChart3 } from "lucide-react";
 import { useState, useCallback, useEffect, type ReactNode } from "react";
 import Button from "@/components/ui/Button";
 
@@ -324,7 +319,8 @@ export default function Footer() {
                                     transition={{ duration: 0.8, ease: "easeInOut" }}
                                     className="flex-shrink-0"
                                 >
-                                    <img src="/logo/favicon.ico" alt="Real Estate Algarve logo" className="h-6 w-6" />
+                                    <Image src="/logo/favicon.ico" width={32} height={32} alt="Favicon" />
+
                                 </motion.div>
                                 <div className="flex flex-col">
                                     <span className="text-lg font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600 group-hover:from-blue-300 group-hover:to-blue-500 transition-all duration-300">

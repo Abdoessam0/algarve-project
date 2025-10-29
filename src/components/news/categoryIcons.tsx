@@ -14,7 +14,6 @@ import {
   Plane,
   Scale,
   Stethoscope,
-  Pill,
 } from "lucide-react";
 
 export type CategorySlug =

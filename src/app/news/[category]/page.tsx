@@ -1,3 +1,4 @@
+//src/app/news/[category]/page
 import type { Metadata } from "next";
 
 import Breadcrumbs from "@/components/news/Breadcrumbs";
